@@ -69,27 +69,17 @@ const makeBanner = async () => {
 
   Promise.all(promises).then(([banner, ...profileImages]) => {
     profileImages.forEach((image, index) => {
-      let row = Math.floor(index / 3);
+      // Create a 3 columns grid
       let col = index % 3;
+      let row = Math.floor(index / 3);
       banner.composite(
         image.circle(),
         COORD_X_IMG + col * SPACE_X_BETWEEN_IMAGES,
         COORD_Y_IMG + row * SPACE_Y_BETWEEN_IMAGES
       );
     });
-    // banner.composite(img2.circle(), COORD_X_IMG, COORD_Y_IMG);
-    // banner.composite(
-    //   img1.circle(),
-    //   COORD_X_IMG + SPACE_X_BETWEEN_IMAGES,
-    //   COORD_Y_IMG
-    // );
-    // banner.composite(
-    //   img0.circle(),
-    //   COORD_X_IMG + SPACE_X_BETWEEN_IMAGES * 2,
-    //   COORD_Y_IMG
-    // );
     banner.write('img/1500x500.png', () => {
-      // uploadBanner();
+      uploadBanner();
     });
   });
 };
