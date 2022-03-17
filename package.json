@@ -1,0 +1,21 @@
+{
+  "name": "twitter_header",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "dotenv": "^10.0.0",
+    "jimp": "^0.16.1",
+    "sharp": "^0.28.3",
+    "twitter": "^1.7.1",
+    "twitter-api-client": "^1.5.2",
+    "twitter-v2": "^1.1.0"
+  }
+}
