@@ -1,6 +1,6 @@
-0.png
-1.png
-2.png
-1500x500.png
+# Images
+/img/**.png
+
+# Files
 node_modules
 .env

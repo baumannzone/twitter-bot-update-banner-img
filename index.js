@@ -9,10 +9,10 @@ import { TwitterClient } from 'twitter-api-client';
 
 const TWITTER_USERNAME = 'baumannzone';
 const SPACE_X_BETWEEN_IMAGES = 70;
-const SPACE_Y_BETWEEN_IMAGES = 100;
+const SPACE_Y_BETWEEN_IMAGES = 70;
 const NUMBER_OF_FOLLOWERS = 6;
 const COORD_X_IMG = 1225;
-const COORD_Y_IMG = 160;
+const COORD_Y_IMG = 180;
 const IMAGE_SIZE = 80;
 
 const twitterClient = new TwitterClient({
@@ -61,25 +61,35 @@ const getLatestFollowers = async () => {
 const makeBanner = async () => {
   const promises = [];
   const images = [
-    'img/base.png',
-    Array(NUMBER_OF_FOLLOWERS).map((_, i) => `${i}.png`),
+    'base.png',
+    ...[...Array(NUMBER_OF_FOLLOWERS)].map((_, index) => `${index}.png`),
   ];
+
   images.forEach((image) => promises.push(Jimp.read(`img/${image}`)));
 
-  Promise.all(promises).then(([banner, img0, img1, img2]) => {
-    banner.composite(img2.circle(), COORD_X_IMG, COORD_Y_IMG);
-    banner.composite(
-      img1.circle(),
-      COORD_X_IMG + SPACE_X_BETWEEN_IMAGES,
-      COORD_Y_IMG
-    );
-    banner.composite(
-      img0.circle(),
-      COORD_X_IMG + SPACE_X_BETWEEN_IMAGES * 2,
-      COORD_Y_IMG
-    );
-    banner.write('1500x500.png', () => {
-      uploadBanner();
+  Promise.all(promises).then(([banner, ...profileImages]) => {
+    profileImages.forEach((image, index) => {
+      let row = Math.floor(index / 3);
+      let col = index % 3;
+      banner.composite(
+        image.circle(),
+        COORD_X_IMG + col * SPACE_X_BETWEEN_IMAGES,
+        COORD_Y_IMG + row * SPACE_Y_BETWEEN_IMAGES
+      );
+    });
+    // banner.composite(img2.circle(), COORD_X_IMG, COORD_Y_IMG);
+    // banner.composite(
+    //   img1.circle(),
+    //   COORD_X_IMG + SPACE_X_BETWEEN_IMAGES,
+    //   COORD_Y_IMG
+    // );
+    // banner.composite(
+    //   img0.circle(),
+    //   COORD_X_IMG + SPACE_X_BETWEEN_IMAGES * 2,
+    //   COORD_Y_IMG
+    // );
+    banner.write('img/1500x500.png', () => {
+      // uploadBanner();
     });
   });
 };
