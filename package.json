@@ -17,5 +17,8 @@
     "twitter": "^1.7.1",
     "twitter-api-client": "^1.5.2",
     "twitter-v2": "^1.1.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.7.1"
   }
 }

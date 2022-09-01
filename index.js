@@ -1,13 +1,14 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
+
 dotenv.config();
-import fs from 'fs';
-import Jimp from 'jimp';
-import axios from 'axios';
-import sharp from 'sharp';
+import fs from "fs";
+import Jimp from "jimp";
+import axios from "axios";
+import sharp from "sharp";
 
-import { TwitterClient } from 'twitter-api-client';
+import { TwitterClient } from "twitter-api-client";
 
-const TWITTER_USERNAME = 'baumannzone';
+const TWITTER_USERNAME = "baumannzone";
 const SPACE_X_BETWEEN_IMAGES = 70;
 const SPACE_Y_BETWEEN_IMAGES = 70;
 const NUMBER_OF_FOLLOWERS = 6;
@@ -23,7 +24,7 @@ const twitterClient = new TwitterClient({
 });
 
 const downloadProfileImg = async (url, imgPath) => {
-  await axios({ url, responseType: 'arraybuffer' }).then(
+  await axios({ url, responseType: "arraybuffer" }).then(
     (response) =>
       new Promise((resolve, reject) => {
         resolve(
@@ -61,7 +62,7 @@ const getLatestFollowers = async () => {
 const makeBanner = async () => {
   const promises = [];
   const images = [
-    'base.png',
+    "base.png",
     ...[...Array(NUMBER_OF_FOLLOWERS)].map((_, index) => `${index}.png`),
   ];
 
@@ -78,14 +79,14 @@ const makeBanner = async () => {
         COORD_Y_IMG + row * SPACE_Y_BETWEEN_IMAGES
       );
     });
-    banner.write('img/1500x500.png', () => {
+    banner.write("img/1500x500.png", () => {
       uploadBanner();
     });
   });
 };
 
 const uploadBanner = async () => {
-  const base64 = fs.readFileSync('img/1500x500.png', { encoding: 'base64' });
+  const base64 = fs.readFileSync("img/1500x500.png", { encoding: "base64" });
   try {
     await twitterClient.accountsAndUsers.accountUpdateProfileBanner({
       banner: base64,
@@ -95,4 +96,10 @@ const uploadBanner = async () => {
   }
 };
 
-getLatestFollowers();
+getLatestFollowers()
+  .then(() => {
+    console.log("done");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
