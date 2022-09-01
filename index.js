@@ -16,6 +16,8 @@ const COORD_X_IMG = 1225;
 const COORD_Y_IMG = 180;
 const IMAGE_SIZE = 80;
 
+let users = [];
+
 const twitterClient = new TwitterClient({
   apiKey: process.env.API_KEY,
   apiSecret: process.env.API_SECRET,
@@ -39,6 +41,9 @@ const getLatestFollowers = async () => {
     screen_name: TWITTER_USERNAME,
     count: NUMBER_OF_FOLLOWERS,
   });
+
+  users = data.users;
+  console.log("Latest followers fetched");
 
   let count = 0;
   const downloads = new Promise((resolve, reject) => {
@@ -91,14 +96,28 @@ const uploadBanner = async () => {
     await twitterClient.accountsAndUsers.accountUpdateProfileBanner({
       banner: base64,
     });
+    console.log("Banner uploaded");
+
+    // postTweetWithUsers();
   } catch (err) {
     console.log(err);
   }
 };
 
+const postTweetWithUsers = async () => {
+  const usersString = users
+    .map((user) => `@${user.screen_name}`)
+    .join(" ");
+  
+  await twitterClient.tweets.statusesUpdate({
+    status: `#Twitter He actualizado el banner de mi perfil de Twitter con los últimos seguidores: ${usersString}. #BannerUpdated #NodeJS #JavaScript`
+  });
+  console.log("Tweet posted");
+};
+
 getLatestFollowers()
   .then(() => {
-    console.log("done");
+    console.log("Script finished");
   })
   .catch((err) => {
     console.log(err);
