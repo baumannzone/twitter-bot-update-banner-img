@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node index.js"
   },
-  "author": "",
+  "author": "Jorge Baumann",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
