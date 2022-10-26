@@ -1,7 +1,11 @@
-# Images
+# Ignore all images from /img
 /img/**.png
 
-# Files
+# But keep base files
+!/img/base.png
+!/img/base1.png
+
+# Common files
 node_modules
 .env
-.idea
+.idea/
