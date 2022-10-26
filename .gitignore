@@ -2,11 +2,11 @@
 /img/**.png
 
 # Keep the generated image
-!img/1500x500.png
-!img/base.png
-!img/base1.png
+!/img/1500x500.png
+!/img/base.png
+!/img/base1.png
 
-# Files
+# Common files
 node_modules
 .env
-.idea
+.idea/
