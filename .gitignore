@@ -1,6 +1,11 @@
 # Images
 /img/**.png
 
+# Keep the generated image
+!img/1500x500.png
+!img/base.png
+!img/base1.png
+
 # Files
 node_modules
 .env
