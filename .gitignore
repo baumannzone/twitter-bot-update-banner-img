@@ -1,8 +1,7 @@
-# Images
+# Ignore all images from /img
 /img/**.png
 
-# Keep the generated image
-!/img/1500x500.png
+# But keep base files
 !/img/base.png
 !/img/base1.png
 
