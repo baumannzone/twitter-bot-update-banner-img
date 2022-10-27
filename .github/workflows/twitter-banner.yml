@@ -25,7 +25,7 @@ jobs:
           mv img/1500x500.png generated-img/${fecha}.png
           git add generated-img/*
           git commit -m "[Bot] Add image :bowtie:"
-          git push origin master
+          git push origin main
         env:
           API_KEY: ${{ secrets.API_KEY }}
           API_SECRET: ${{ secrets.API_SECRET }}
