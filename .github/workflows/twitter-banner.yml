@@ -17,19 +17,18 @@ jobs:
           node-version: 16
           cache: 'npm'
       - run: npm i
-      - run: npm run start
+      - run: |
+          npm run start
+          git config user.name baumannzone
+          git config user.email jorge.baumann.aguilar@gmail.com
+          fecha=`date +'%Y_%m_%d-%H:%M'`
+          mv img/1500x500.png generated-img/${fecha}.png
+          git add generated-img/*
+          git commit -m "[Bot] Add image :bowtie:"
+          git push origin master
         env:
           API_KEY: ${{ secrets.API_KEY }}
           API_SECRET: ${{ secrets.API_SECRET }}
           BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
-
-      - run: |
-          git config user.name baumannzone
-          git config user.email jorge.baumann.aguilar@gmail.com
-          fecha=`date +'%Y_%m_%d-%H:%M'`
-          mv img/1500x500.png generated-img/${fecha}.png
-          git add generated-img/*
-          git diff --quiet && git diff --staged --quiet || git commit -m "[Bot] Add image ${now} :bowtie:"
-          git push origin master
