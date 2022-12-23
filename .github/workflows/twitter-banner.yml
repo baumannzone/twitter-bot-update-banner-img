@@ -2,8 +2,8 @@ name: Update Twitter Banner
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '*/30 * * * *'
+#  schedule:
+#    - cron: '*/30 * * * *'
 
 jobs:
   build:
